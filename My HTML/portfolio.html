@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Christian Tacud | Virtual Assistant</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  
+  <style>
+/* ------------------------------------------------------------------ */
+/* Premium Animated Background + Glass UI                              */
+/* ------------------------------------------------------------------ */
+*{ box-sizing:border-box; margin:0; padding:0; }
+html{ scroll-behavior:smooth; }
+body{ font-family: 'Poppins', Arial, sans-serif; -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale; color:rgba(255,255,255,0.92); }
+
+:root{
+    /* Palette */
+    --bg-1: #051022; /* near-black navy */
+    --bg-2: #0b2740; /* deep blue */
+    --accent-1: #50E3C2; /* teal */
+    --accent-2: #FF7B00; /* warm gold */
+    --accent-3: #7B61FF; /* soft purple */
+    --glass-1: rgba(255,255,255,0.06);
+    --glass-2: rgba(255,255,255,0.03);
+    --muted: rgba(255,255,255,0.82);
+    --shadow-strong: 0 30px 80px rgba(7,10,25,0.7);
+}
+
+/* --- Background layering ------------------------------------------------ */
+body{
+    min-height:100vh;
+    background: linear-gradient(180deg, var(--bg-1) 0%, var(--bg-2) 100%);
+    position:relative;
+    overflow-x:hidden;
+}
+
+body::before{
+    content:''; position:fixed; inset:-12vmax; z-index:-3; pointer-events:none;
+    background: radial-gradient(60% 40% at 10% 10%, rgba(80,227,194,0.06), transparent 12%), radial-gradient(60% 40% at 90% 90%, rgba(123,97,255,0.05), transparent 14%);
+    filter: blur(22px) contrast(.98);
+    transform: translateZ(0);
+    opacity:.85;
+}
+
+@keyframes wash{ to{ transform: rotate(360deg) translateZ(0); } }
+
+@keyframes blobs{ 0%{ transform: translateY(0) scale(1); } 100%{ transform: translateY(-36px) scale(1.02); } }
+
+/* --- Layout & typography ------------------------------------------------ */
+.container{ max-width:1200px; width:92%; margin:0 auto; }
+.brand{ color:var(--muted); font-weight:700; letter-spacing:0.6px; }
+
+/* --- Nav surface (glass) ------------------------------------------------ */
+.site-header{ position:sticky; top:18px; z-index:50; }
+.nav-surface{ display:flex; align-items:center; justify-content:space-between; gap:16px; padding:10px 16px; border-radius:14px; border:1px solid rgba(255,255,255,0.04); background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)); backdrop-filter: blur(8px); }
+.nav-link{ color:var(--muted); padding:8px 12px; border-radius:999px; font-weight:600; text-decoration:none; transition: all .18s ease; }
+.nav-link:hover{ transform:translateY(-4px); color:#fff; background: rgba(255,255,255,0.04); }
+.nav-cta{ background: linear-gradient(90deg, var(--accent-2), var(--accent-1)); color:#071022; padding:9px 14px; border-radius:999px; font-weight:800; box-shadow: 0 10px 40px rgba(7,10,25,0.5); text-decoration:none; }
+
+/* --- Hero --------------------------------------------------------------- */
+.hero{ padding:110px 0 72px; display:grid; place-items:center; text-align:center; position:relative; }
+.profile-photo{ width:168px; height:168px; border-radius:999px; object-fit:cover; border:6px solid rgba(255,255,255,0.06); box-shadow: 0 30px 90px rgba(2,6,23,0.65); }
+.hero-title{ display:block; text-align:center; }
+.hero h1{ font-size:2.8rem; color: #fff; line-height:1.02; margin-top:18px; letter-spacing:-0.6px; }
+.hero p{ margin-top:12px; color: rgba(255,255,255,0.85); max-width:760px; font-size:1.05rem; }
+.hero-ctas{ margin-top:26px; display:flex; gap:12px; justify-content:center; }
+
+/* --- Sections & Cards (glassmorphism) ---------------------------------- */
+section{ padding:88px 0; position:relative; }
+.section-title h2{ color: #fff; font-size:1.5rem; letter-spacing:0.6px; text-align:center; }
+/* Ensure any section headings are centered (covers standalone h2 like contact) */
+section h2{ text-align:center; }
+.lead{ color: rgba(255,255,255,0.78); max-width:820px; margin:10px auto 0; }
+
+.grid{ display:grid; gap:20px; grid-template-columns:repeat(auto-fit, minmax(260px, 1fr)); }
+.card{ background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.02)); border-radius:14px; padding:22px; border:1px solid rgba(255,255,255,0.04); box-shadow: 0 18px 54px rgba(2,6,23,0.42); transition: transform .28s cubic-bezier(.2,.9,.2,1), box-shadow .28s ease; will-change: transform; }
+.card:hover{ transform: translateY(-8px) rotate(-0.15deg) scale(1.01); box-shadow: 0 30px 86px rgba(2,6,23,0.55); }
+.card h3{ color:#fff; margin-bottom:8px; }
+
+/* --- Tools logo grid (polish) ----------------------------------------- */
+.tools-grid{ display:grid; gap:18px; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); align-items:start; margin-top:22px; }
+.tool-card{ background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)); border-radius:12px; padding:18px; display:flex; flex-direction:column; align-items:center; gap:12px; border:1px solid rgba(255,255,255,0.04); box-shadow: 0 12px 30px rgba(2,6,23,0.34); transition: transform .2s ease, box-shadow .2s ease; will-change: transform; }
+.tool-card:hover{ transform: translateY(-6px) scale(1.02); box-shadow: 0 26px 68px rgba(2,6,23,0.52); }
+.logo-wrap{ width:76px; height:76px; display:flex; align-items:center; justify-content:center; border-radius:14px; background: linear-gradient(180deg, rgba(255,255,255,0.015), rgba(255,255,255,0.01)); }
+.logo-wrap img{ width:44px; height:44px; object-fit:contain; display:block; }
+.tool-name{ color: rgba(255,255,255,0.9); font-weight:700; font-size:0.95rem; text-align:center; }
+
+/* floating micro glass elements used across the page */
+.glass-float{ position:absolute; width:120px; height:60px; border-radius:12px; background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)); border:1px solid rgba(255,255,255,0.04); box-shadow: 0 14px 36px rgba(2,6,23,0.34); animation: smallFloat 5s ease-in-out infinite; will-change: transform; }
+@keyframes smallFloat{ 0%{ transform: translateY(0) } 50%{ transform: translateY(-8px) } 100%{ transform: translateY(0) } }
+
+/* Reveal animations & smooth transitions */
+.reveal{ opacity:0; transform: translateY(18px) scale(.995); transition: opacity .72s ease, transform .72s cubic-bezier(.2,.9,.2,1); }
+.reveal.in-view{ opacity:1; transform:none; }
+
+/* responsive */
+@media (max-width:920px){ .hero h1{ font-size:2.2rem; } .hero p{ font-size:1rem; } }
+@media (max-width:720px){ .nav-list{ display:none; } .mobile-toggle{ display:inline-flex; } .hero{ padding:70px 0 40px; } .logo-wrap{ width:64px; height:64px; } }
+
+/* Respect reduced motion preferences */
+@media (prefers-reduced-motion: reduce){
+    *{ animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition:none !important; }
+}
+
+/* ------------------ Immersive background layers ------------------ */
+#bg-root{ position:fixed; inset:0; z-index:-4; pointer-events:none; overflow:hidden; }
+#bg-root::before{ content:''; position:absolute; inset:0; background: radial-gradient(60% 40% at 10% 12%, rgba(80,227,194,0.06), transparent 10%), radial-gradient(60% 40% at 92% 88%, rgba(123,97,255,0.05), transparent 12%), linear-gradient(180deg, rgba(7,10,25,0.06), rgba(7,10,25,0.18)); mix-blend-mode: normal; filter: contrast(.98) saturate(1.02); }
+
+.bg-blob{ position:absolute; border-radius:50%; transform:translate3d(0,0,0); will-change: transform, opacity; pointer-events:none; }
+.bg-blob.b1{ left:6%; top:8%; width:clamp(180px,20vw,420px); height:clamp(180px,20vw,420px); background: radial-gradient(circle at 30% 30%, rgba(80,227,194,0.22), rgba(123,97,255,0.12) 45%, transparent 65%); filter: blur(44px); opacity:0.92; animation: floatBlob 22s ease-in-out infinite; }
+.bg-blob.b2{ right:6%; bottom:6%; width:clamp(160px,18vw,360px); height:clamp(160px,18vw,360px); background: radial-gradient(circle at 60% 40%, rgba(255,123,0,0.18), rgba(123,97,255,0.10) 45%, transparent 66%); filter: blur(56px); opacity:0.86; animation: floatBlob 26s ease-in-out infinite reverse; }
+.bg-blob.b3{ left:50%; top:60%; transform:translateX(-50%); width:clamp(200px,22vw,420px); height:clamp(200px,22vw,420px); background: radial-gradient(circle at 40% 60%, rgba(123,97,255,0.14), rgba(80,227,194,0.12) 45%, transparent 68%); filter: blur(48px); opacity:0.78; animation: floatBlob 20s ease-in-out infinite; }
+
+.bg-shape{ position:absolute; width:84px; height:84px; border-radius:12px; background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02)); mix-blend-mode:overlay; box-shadow:0 8px 28px rgba(2,6,23,0.32); transform: translate3d(0,0,0); opacity:.62; pointer-events:none; animation: spinSmall 18s linear infinite; }
+.bg-shape.s1{ left:10%; bottom:22%; }
+.bg-shape.s2{ right:14%; top:24%; width:64px; height:64px; animation-duration:20s; transform-origin:center; }
+
+@keyframes floatBlob{ 0%{ transform: translate3d(0,0,0) scale(1);} 50%{ transform: translate3d(0,-28px,0) scale(1.035);} 100%{ transform: translate3d(0,0,0) scale(1);} }
+@keyframes spinSmall{ 0%{ transform: rotate(0deg) translateY(0);} 50%{ transform: rotate(180deg) translateY(-6px);} 100%{ transform: rotate(360deg) translateY(0);} }
+
+section::before{ content:''; position:absolute; left:50%; top:0; transform:translateX(-50%); width:88%; height:1px; background:linear-gradient(90deg, transparent, rgba(255,255,255,0.04), transparent); box-shadow:0 6px 20px rgba(2,6,23,0.28); pointer-events:none; opacity:0.6; }
+section:nth-of-type(even)::before{ background: linear-gradient(90deg, rgba(123,97,255,0.03), rgba(80,227,194,0.03)); opacity:0.45; }
+
+.container{ position:relative; z-index:2; }
+.container::before{ content:''; position:absolute; inset:-18px; border-radius:18px; pointer-events:none; background: linear-gradient(180deg, rgba(123,97,255,0.02), rgba(80,227,194,0.02)); filter: blur(12px); opacity:0.65; z-index:-1; }
+
+body::after{ content:''; position:fixed; inset:0; z-index:-2; background: radial-gradient(60% 40% at 50% 60%, rgba(0,0,0,0), rgba(0,0,0,0.22)); pointer-events:none; mix-blend-mode:multiply; }
+
+@media (prefers-reduced-motion: reduce){ .bg-blob, .bg-shape{ animation:none !important; } }
+
+.performance-grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+gap:25px;
+}
+
+.performance-card{
+padding:30px;
+text-align:center;
+border-radius:15px;
+background:rgba(255,255,255,.05);
+}
+
+.performance-card i{
+font-size:50px;
+margin-bottom:15px;
+color:#50E3C2;
+}
+
+</style>
+<!-- Override / refinement stylesheet: improves spacing, contrast, buttons, cards -->
+<style>
+:root{
+    --bg-deep: #061223;
+    --bg-mid: #0e2a44;
+    --accent-a: #6EE7C1;
+    --accent-b: #FFD28A;
+    --accent-c: #9B8CFF;
+    --muted: rgba(255,255,255,0.78);
+    --glass-strong: rgba(255,255,255,0.045);
+    --glass-soft: rgba(255,255,255,0.02);
+    --card-shadow: 0 20px 60px rgba(3,7,18,0.55);
+    --elevate-shadow: 0 28px 92px rgba(3,7,18,0.62);
+    --text: #F6FBFF;
+}
+
+body{ background: linear-gradient(180deg, var(--bg-deep) 0%, rgba(10,28,46,0.88) 28%, var(--bg-mid) 100%); }
+
+/* nav refinements */
+.nav-surface{ padding:12px 20px; border-radius:14px; box-shadow: 0 8px 28px rgba(2,6,23,0.28); }
+.nav-list{ display:flex; align-items:center; gap:10px; list-style:none; margin:0; padding:0; }
+.nav-link{ font-size:0.95rem; color:var(--muted); }
+.nav-cta{ padding:10px 16px; border-radius:12px; font-weight:800; }
+
+/* hero adjustments */
+.hero{ padding:124px 0 88px; }
+.hero h1{ font-size:3.2rem; }
+.hero p{ font-size:1.06rem; }
+.hero-sub{ display:block; margin-top:8px; color:rgba(255,255,255,0.7); /* align left edge under profile photo */ width:168px; margin-left:calc(50% - 84px); text-align:left; }
+
+/* buttons */
+.btn-primary{ padding:12px 20px; border-radius:12px; }
+.btn-ghost{ padding:10px 16px; border-radius:12px; }
+
+/* cards & portfolio */
+.card{ padding:26px; border-radius:14px; box-shadow: var(--card-shadow); }
+.card h3{ font-size:1.06rem; }
+.portfolio-item img{ height:300px; }
+
+/* tools */
+.tools-grid{ grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); }
+.tool-card{ padding:20px; border-radius:14px; }
+
+/* footer polish */
+footer{ text-align:center; padding:34px 0; color:rgba(255,255,255,0.65); border-top:1px solid rgba(255,255,255,0.02); }
+
+/* small screens */
+@media (max-width:720px){ .hero h1{ font-size:2rem; } .profile-photo{ width:140px; height:140px; } }
+
+@media (max-width:720px){ .hero-sub{ width:140px; margin-left:calc(50% - 70px); } }
+
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container">
+    <nav class="nav-surface">
+      <div class="brand">Christian Tacud</div>
+
+      <ul class="nav-list">
+        <li class="nav-item"><a class="nav-link" href="#home">Home</a></li>
+        <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
+        <li class="nav-item"><a class="nav-link" href="#performance">Services</a></li>
+        <li class="nav-item"><a class="nav-link" href="#works">Works</a></li>
+      </ul>
+
+      <div style="display:flex;gap:12px;align-items:center">
+        <a class="nav-cta" href="#contact">Contact</a>
+        <button class="mobile-toggle" aria-label="Toggle menu">☰</button>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<section id="home" class="hero">
+  <div class="container">
+    <img src="Profile.png" alt="Christian Tacud" class="profile-photo">
+    <div class="hero-title">
+      <h1>Christian Tacud</h1>
+      <p class="hero-sub">Virtual Assistant — Administrative Support & Data Entry Specialist</p>
+    </div>
+    <div style="margin-top:22px;display:flex;gap:12px;justify-content:center">
+      <a class="nav-cta" href="#contact" style="padding:10px 16px">Hire Me</a>
+      <a href="#works" style="padding:9px 14px;background:transparent;border-radius:12px;border:1px solid rgba(255,255,255,0.06);text-decoration:none;color:rgba(255,255,255,0.9)">View Works</a>
+    </div>
+  </div>
+</section>
+
+<section id="about">
+  <div class="container">
+    <h2>About Me</h2>
+    <p style="margin-top:12px;max-width:820px;margin-left:auto;margin-right:auto;text-align:center;font-size:1.12rem;line-height:1.65">Hi, I'm Christian N. Tacud, a Bachelor of Science in Information Technology graduate and aspiring Virtual Assistant. I specialize in administrative support, data entry, calendar management, spreadsheet organization, and document management. With strong attention to detail, excellent organizational skills, and a commitment to accuracy, I help businesses stay organized and productive. I am dedicated to providing reliable support and continuously improving my skills to deliver high-quality results for every client.</p>
+  </div>
+</section>
+
+<section id="performance">
+
+<div class="container">
+
+<div class="section-title">
+<h2>Proven Performance</h2>
+</div>
+
+<div class="performance-grid">
+
+<div class="performance-card">
+<i class="fas fa-database"></i>
+<h3>Data Entry</h3>
+<p>Accurate data entry and spreadsheet management.</p>
+</div>
+
+<div class="performance-card">
+<i class="fas fa-briefcase"></i>
+<h3>Administrative Support</h3>
+<p>Document management, scheduling, and file organization.</p>
+</div>
+
+<div class="performance-card">
+<i class="fas fa-envelope"></i>
+<h3>Email Management</h3>
+<p>Inbox organization and email workflow management.</p>
+</div>
+
+<div class="performance-card">
+<i class="fas fa-calendar-alt"></i>
+<h3>Calendar Management</h3>
+<p>Scheduling meetings, appointments, and reminders.</p>
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<section id="works">
+  <div class="container">
+    <div class="section-title"><h2>Portfolio Samples</h2></div>
+    <div class="portfolio" style="margin-top:20px">
+
+      <div class="portfolio-item">
+        <img class="thumb" loading="lazy" src="gmail-sample.png" alt="Email Management sample" data-full="gmail-sample.png">
+        <img class="thumb" loading="lazy" src="gmail-sample1.png" alt="Email Management sample" data-full="gmail-sample1.png">
+        <div class="thumb-caption">Email Management</div>
+        <div class="portfolio-content">
+          <h3>Email Management & Inbox Organization</h3>
+          <p>Organized and categorized incoming emails using labels, folders, and priority management techniques to improve visibility and workflow.</p>
+        </div>
+      </div>
+
+      <div class="portfolio-item">
+        <img class="thumb" loading="lazy" src="dataentry-sample.png" alt="Data Entry sample" data-full="dataentry-sample.png">
+        <img class="thumb" loading="lazy" src="dataentry-sample1.png" alt="Data Entry sample" data-full="dataentry-sample.png">
+        <div class="thumb-caption">Data Entry</div>
+        <div class="portfolio-content">
+          <h3>Data Entry & Spreadsheet Management</h3>
+          <p>Accurate data capture, spreadsheet optimization, and record maintenance for reliable datasets.</p>
+        </div>
+      </div>
+
+      <div class="portfolio-item">
+        <img class="thumb" loading="lazy" src="calendarmanagement-sample.png" alt="Calendar Management sample" data-full="calendarmanagement-sample.png">
+        <img class="thumb" loading="lazy" src="calendarmanagement-sample1.png" alt="Calendar Management sample" data-full="calendarmanagement-sample1.png">
+        <div class="thumb-caption">Calendar Management</div>
+        <div class="portfolio-content">
+          <h3>Calendar & Schedule Management</h3>
+          <p>Appointment scheduling, reminders, and meeting coordination using Google Calendar.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="container">
+    <h2>Let's Work Together</h2>
+    <p style="margin-top:12px;text-align:center">📧 tacudchristian25@gmail.com</p>
+    <p style="text-align:center">📱 +63 908 184 6536</p>
+    <p style="text-align:center">📍 Kalibo, Aklan, Philippines</p>
+  </div>
+</section>
+
+<footer style="text-align:center;padding:28px 0;color:rgba(255,255,255,0.65);border-top:1px solid rgba(255,255,255,0.02)">
+  <div class="container">© 2025 Christian Tacud | Virtual Assistant Portfolio</div>
+</footer>
+
+<script>
+  document.querySelector('.mobile-toggle').addEventListener('click',()=>{
+    const ul = document.querySelector('.nav-list');
+    if(ul.style.display==='flex') ul.style.display='none'; else ul.style.display='flex';
+  });
+</script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function(){
+  function makeBadgeSVG(text, color, size){
+    const initials = (text||'').split(' ').map(s=>s[0]).slice(0,2).join('').toUpperCase() || 'NA';
+    const w = size || 400;
+    const svg = `<?xml version="1.0" encoding="UTF-8"?><svg xmlns='http://www.w3.org/2000/svg' width='${w}' height='${w}' viewBox='0 0 ${w} ${w}'>`+
+      `<rect width='100%' height='100%' rx='20' fill='#${color}'/>`+
+      `<text x='50%' y='54%' font-family='Poppins, Arial, sans-serif' font-size='${Math.round(w/2.6)}' fill='#fff' font-weight='700' text-anchor='middle' dominant-baseline='middle'>${initials}</text>`+
+      `</svg>`;
+    return 'data:image/svg+xml;utf8,' + encodeURIComponent(svg);
+  }
+
+  document.querySelectorAll('img').forEach(img => {
+    const apply = () => {
+      const name = img.dataset.brand || img.alt || 'NA';
+      img.src = makeBadgeSVG(name.replace(/\s*logo$/i,''), '7a7a7a', 400);
+      img.style.objectFit = 'cover';
+    };
+
+    img.addEventListener('error', apply);
+    if(img.complete && img.naturalWidth === 0) apply();
+  });
+});
+</script>
+
+</body>
+</html>
+
+<style>
+/* Thumbnails, captions & lightbox */
+.performance-grid{ display:grid; gap:28px; grid-template-columns:repeat(3,1fr); align-items:start; margin-top:22px; }
+.performance-card{ background: linear-gradient(180deg, rgba(255,255,255,0.025), rgba(255,255,255,0.01)); border-radius:14px; padding:24px; border:1px solid rgba(255,255,255,0.045); box-shadow: 0 16px 48px rgba(2,6,23,0.36); text-align:center; }
+.performance-card h3{ margin-top:10px; color:#fff; font-size:1.08rem; }
+.performance-card p{ color:rgba(255,255,255,0.88); font-size:1rem; }
+/* Make the fourth card span full width below the top three and center it */
+.performance-grid .performance-card:nth-child(4){ grid-column:1 / -1; justify-self:center; max-width:880px; }
+
+@media (max-width:920px){ .performance-grid{ grid-template-columns:repeat(2,1fr); } .performance-grid .performance-card:nth-child(4){ grid-column:auto; max-width:720px; }}
+@media (max-width:520px){ .performance-grid{ grid-template-columns:1fr; } .performance-grid .performance-card:nth-child(4){ max-width:100%; }}
+
+.portfolio{ display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:22px; }
+.thumbs{ display:flex; gap:12px; }
+.portfolio-item{ border-radius:14px; overflow:hidden; border:1px solid rgba(255,255,255,0.04); background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)); box-shadow: 0 20px 70px rgba(2,6,23,0.55); transition: transform .28s ease; }
+.portfolio-item .thumb{ width:100%; height:220px; object-fit:cover; display:block; transition: transform .28s ease, filter .28s ease; margin-bottom:12px; }
+/* When multiple .thumb images appear in the same .portfolio-item, stack vertically */
+.portfolio-item > .thumb{ display:block; width:100%; height:220px; }
+.portfolio-item > .thumb + .thumb{ margin-top:12px; margin-bottom:0; }
+.thumbs .thumb{ width:100%; height:200px; }
+.portfolio-item:hover{ transform: translateY(-8px); }
+.portfolio-item:hover .thumb{ transform: scale(1.03); }
+.thumb-caption{ padding:10px 14px; font-weight:700; color:rgba(255,255,255,0.92); background:linear-gradient(180deg, rgba(0,0,0,0.02), rgba(255,255,255,0.01)); }
+
+/* Center portfolio and performance titles/descriptions */
+.performance-card h3, .performance-card p, .portfolio-content h3, .portfolio-content p, .thumb-caption{ text-align:center; }
+
+.lightbox{ position:fixed; inset:0; display:flex; align-items:center; justify-content:center; background: rgba(2,6,23,0.85); z-index:200; opacity:0; pointer-events:none; transition: opacity .22s ease; }
+.lightbox.open{ opacity:1; pointer-events:auto; }
+.lightbox-inner{ max-width:92%; max-height:86%; text-align:center; }
+.lightbox img{ max-width:100%; max-height:78vh; border-radius:10px; box-shadow:0 28px 80px rgba(0,0,0,0.6); }
+.lightbox .caption{ margin-top:12px; color:#fff; font-size:0.98rem; }
+.lightbox .close{ position:absolute; top:20px; right:22px; background:transparent;border:0;color:#fff;font-size:34px; cursor:pointer }
+</style>
+
+<!-- Lightbox markup -->
+<div id="lightbox" class="lightbox" aria-hidden="true">
+  <div class="lightbox-inner" role="document">
+    <button class="close" id="lightbox-close" aria-label="Close">×</button>
+    <img id="lightbox-img" src="" alt="" />
+    <div id="lightbox-caption" class="caption"></div>
+  </div>
+</div>
+
+<script>
+(function(){
+  const lb = document.getElementById('lightbox');
+  const lbImg = document.getElementById('lightbox-img');
+  const lbCap = document.getElementById('lightbox-caption');
+  const close = document.getElementById('lightbox-close');
+
+  document.querySelectorAll('.portfolio-item .thumb').forEach(img => {
+    img.style.cursor = 'zoom-in';
+    img.addEventListener('click', ()=>{
+      const hi = img.dataset.full || img.src;
+      lbImg.src = hi;
+      lbImg.alt = img.alt || '';
+      lbCap.textContent = img.alt || '';
+      lb.classList.add('open');
+      lb.setAttribute('aria-hidden','false');
+    });
+  });
+
+  function closeLb(){ lb.classList.remove('open'); lb.setAttribute('aria-hidden','true'); }
+  lb.addEventListener('click', (e)=>{ if(e.target===lb || e.target===close) closeLb(); });
+  document.addEventListener('keydown', (e)=>{ if(e.key==='Escape') closeLb(); });
+})();
+</script>
